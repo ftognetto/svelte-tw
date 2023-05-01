@@ -13,7 +13,7 @@
 			id={name}
 			{name}
 			type="checkbox"
-			{checked}
+			bind:checked
 			{value}
 			on:change
 			class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
