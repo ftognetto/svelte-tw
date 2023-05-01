@@ -5,6 +5,7 @@
 		error?: string;
 		containerClass?: string;
 		labelClass?: string;
+		fileLabel?: string;
 		inputContainerClass?: string;
 		inputClass?: string;
 		errorClass?: string;
@@ -16,12 +17,13 @@
 	export let inputContainerClass: string | undefined = undefined;
 	export let inputClass: string | undefined = undefined;
 	export let errorClass: string | undefined = undefined;
-	let fileLabel: string = 'Nessun file selezionato';
+	export let fileLabel: string = 'Nessun file selezionato';
+	let _fileLabel = fileLabel;
 	const _onFileChange = (event: any) => {
 		if (event.target.files.length > 0) {
-			fileLabel = event.target.files[0].name;
+			_fileLabel = event.target.files[0].name;
 		} else {
-			fileLabel = 'Nessun file selezionato';
+			_fileLabel = fileLabel;
 		}
 	};
 </script>
@@ -48,7 +50,7 @@
 				? 'text-gray-500'
 				: 'text-gray-900'}"
 		>
-			{fileLabel}
+			{_fileLabel}
 		</label>
 
 		<input
