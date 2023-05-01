@@ -4,6 +4,7 @@
 	export let subtitle: string | undefined = undefined;
 	export let checked: boolean = false;
 	export let value: string = 'on';
+	export let subtitleInline: boolean = false;
 </script>
 
 <div class="relative flex items-start {$$props.containerClass}">
@@ -19,10 +20,17 @@
 		/>
 	</div>
 	<div class="ml-3 text-sm">
-		<label for="comments" class="font-medium text-gray-700">{label}</label>
-		{#if subtitle}<p id="comments-description" class="text-gray-500">
-				{subtitle}
-			</p>
+		<label for={name} class="font-medium text-gray-700">{label}</label>
+		{#if subtitle}
+			{#if subtitleInline}
+				<span id="{name}-description" class="text-gray-500">
+					{subtitle}
+				</span>
+			{:else}
+				<p id="{name}-description" class="text-gray-500">
+					{subtitle}
+				</p>
+			{/if}
 		{/if}
 	</div>
 </div>
