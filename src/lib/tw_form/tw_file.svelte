@@ -9,6 +9,7 @@
 		inputContainerClass?: string;
 		inputClass?: string;
 		errorClass?: string;
+		files?: FileList;
 	}
 	export let error: string | undefined = undefined;
 	export let label: string | undefined = undefined;
@@ -18,14 +19,8 @@
 	export let inputClass: string | undefined = undefined;
 	export let errorClass: string | undefined = undefined;
 	export let fileLabel: string = 'Nessun file selezionato';
-	let _fileLabel = fileLabel;
-	const _onFileChange = (event: any) => {
-		if (event.target.files.length > 0) {
-			_fileLabel = event.target.files[0].name;
-		} else {
-			_fileLabel = fileLabel;
-		}
-	};
+	export let files: FileList | undefined = undefined;
+	$: _fileLabel = files?.length ? files[0].name : fileLabel;
 </script>
 
 <div class={containerClass}>
@@ -56,9 +51,10 @@
 		<input
 			type="file"
 			class="absolute inset-0 h-full w-full cursor-pointer rounded-md border-gray-300 opacity-0 {inputClass}"
-			on:change={_onFileChange}
-			on:input
 			{...$$props}
+			bind:files
+			on:change
+			on:input
 		/>
 
 		{#if error}

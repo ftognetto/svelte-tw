@@ -8,6 +8,8 @@
 		inputContainerClass?: string;
 		inputClass?: string;
 		errorClass?: string;
+		value?: string | number;
+		type?: string;
 	}
 	export let error: string | undefined = undefined;
 	export let label: string | undefined = undefined;
@@ -16,30 +18,39 @@
 	export let inputContainerClass: string | undefined = undefined;
 	export let inputClass: string | undefined = undefined;
 	export let errorClass: string | undefined = undefined;
+	export let value: string | number = '';
+	export let type: string = 'text';
+
+	$: _labelClass = `block text-sm font-medium leading-6 
+		${$$props.disabled ? 'text-gray-500 ' : 'text-gray-700 '} 
+		${labelClass}`;
+
+	$: _inputClass = `mt-2 block w-full rounded-md sm:text-sm 
+		${
+			$$props.disabled
+				? 'cursor-not-allowed border-gray-200 bg-gray-50 text-gray-500 placeholder:text-gray-300 '
+				: error
+				? 'border-red-300 pr-10 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500 '
+				: 'border-gray-300 focus:border-primary-500 focus:ring-primary-500 placeholder:text-gray-300 '
+		}
+		${inputClass}`;
+
+	const setType = (node: HTMLInputElement, _type: string) => {
+		node.type = _type;
+		return {
+			update(_type: string) {
+				node.type = _type;
+			}
+		};
+	};
 </script>
 
 <div class={containerClass}>
-	{#if label}<label
-			for={$$props.name}
-			class="block text-sm font-medium leading-6 {$$props.disabled
-				? 'text-gray-500'
-				: 'text-gray-700'} {labelClass}">{label}</label
-		>
+	{#if label}
+		<label for={$$props.name} class={_labelClass}>{label}</label>
 	{/if}
 	<div class="relative mt-1 rounded-md {$$props.disabled ? '' : 'shadow-sm'} {inputContainerClass}">
-		<input
-			class="mt-2 block w-full rounded-md sm:text-sm
-            {$$props.disabled
-				? 'cursor-not-allowed border-gray-200 bg-gray-50 text-gray-500 placeholder:text-gray-300'
-				: error
-				? 'border-red-300 pr-10 text-red-900 placeholder-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500'
-				: 'border-gray-300 focus:border-primary-500 focus:ring-primary-500 placeholder:text-gray-300'} 
-            {inputClass}"
-			type={$$props.type || 'text'}
-			{...$$props}
-			on:change
-			on:input
-		/>
+		<input class={_inputClass} {...$$props} bind:value on:change on:input use:setType={type} />
 		{#if error}
 			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
 				<svg

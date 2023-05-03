@@ -8,6 +8,8 @@
 		inputContainerClass?: string;
 		inputClass?: string;
 		errorClass?: string;
+		items: { name: string | number; value: string | number }[];
+		value?: string | number;
 	}
 	export let error: string | undefined = undefined;
 	export let label: string | undefined = undefined;
@@ -16,6 +18,8 @@
 	export let inputContainerClass: string | undefined = undefined;
 	export let inputClass: string | undefined = undefined;
 	export let errorClass: string | undefined = undefined;
+	export let items: { name: string | number; value: string | number }[];
+	export let value: string | number | undefined = undefined;
 </script>
 
 <div class={containerClass}>
@@ -36,10 +40,16 @@
 				: 'border-gray-300 focus:border-primary-500 focus:ring-primary-500 placeholder:text-gray-300'} 
 			{inputClass}"
 			{...$$props}
+			bind:value
 			on:change
 			on:input
 		>
-			<slot />
+			{#if $$props.placeholder}
+				<option disabled selected value="">{$$props.placeholder}</option>
+			{/if}
+			{#each items as i}
+				<option value={i.value}>{i.name}</option>
+			{/each}
 		</select>
 		{#if error}
 			<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">

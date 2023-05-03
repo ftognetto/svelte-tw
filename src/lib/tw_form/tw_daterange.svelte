@@ -54,7 +54,7 @@
 				id={nameTo}
 				type="date"
 				name={nameTo}
-				value={valueTo || ''}
+				bind:value={valueTo}
 				{placeholder}
 				class="{inputClass} rounded-none rounded-br-md rounded-tr-md"
 				{readonly}

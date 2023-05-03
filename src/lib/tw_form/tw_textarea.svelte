@@ -8,6 +8,7 @@
 		inputContainerClass?: string;
 		inputClass?: string;
 		errorClass?: string;
+		value?: string;
 	}
 	export let error: string | undefined = undefined;
 	export let label: string | undefined = undefined;
@@ -16,6 +17,7 @@
 	export let inputContainerClass: string | undefined = undefined;
 	export let inputClass: string | undefined = undefined;
 	export let errorClass: string | undefined = undefined;
+	export let value: string = '';
 </script>
 
 <div class={containerClass}>
@@ -36,6 +38,7 @@
 				: 'border-gray-300 focus:border-primary-500 focus:ring-primary-500 placeholder:text-gray-300'} 
 				{inputClass}"
 			{...$$props}
+			bind:value
 			on:change
 			on:input
 		/>
