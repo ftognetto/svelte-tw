@@ -5,6 +5,8 @@
 	export let checked: boolean = false;
 	export let value: string = 'on';
 	export let subtitleInline: boolean = false;
+	export let error: string | undefined = undefined;
+	export let errorClass: string | undefined = undefined;
 </script>
 
 <div class="relative flex items-start {$$props.containerClass}">
@@ -33,4 +35,5 @@
 			{/if}
 		{/if}
 	</div>
+	{#if error}<p class="mt-2 text-sm text-red-600 {errorClass}">{error}</p>{/if}
 </div>
