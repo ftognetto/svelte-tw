@@ -1,6 +1,6 @@
 {
 	"name": "@quantos/svelte-tw",
-	"version": "1.0.22",
+	"version": "1.0.23",
 	"description": "Quantos Svelte Tw Components",
 	"author": "fabriziotognetto <info@quantos.it>",
 	"repository": "github:ftognetto/svelte-tw",
