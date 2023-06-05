@@ -8,7 +8,7 @@
 </script>
 
 <Transition {show}>
-	<Dialog as="div" class="relative z-10" on:close={() => (show = false)}>
+	<Dialog as="div" class="relative z-[100]" on:close={() => (show = false)}>
 		<TransitionChild
 			enter="ease-out duration-300"
 			enterFrom="opacity-0"
@@ -20,7 +20,7 @@
 			<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 		</TransitionChild>
 
-		<div class="fixed inset-0 z-10 overflow-y-auto">
+		<div class="fixed inset-0 z-[100] overflow-y-auto">
 			<div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 				<TransitionChild
 					enter="ease-out duration-300"
