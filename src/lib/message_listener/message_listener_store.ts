@@ -18,14 +18,19 @@ export default {
 	set: messageListenerStore.set
 };
 
-export const showError = (message?: string, title?: string) => {
-	addMessage('error', message, title);
+export const showError = (message?: string, title?: string, duration?: number) => {
+	addMessage('error', message, title, duration);
 };
-export const showInfo = (message?: string, title?: string) => {
-	addMessage('info', message, title);
+export const showInfo = (message?: string, title?: string, duration?: number) => {
+	addMessage('info', message, title, duration);
 };
 
-const addMessage = (type: 'error' | 'info', message?: string, title?: string) => {
+const addMessage = (
+	type: 'error' | 'info',
+	message?: string,
+	title?: string,
+	duration?: number
+) => {
 	const timestamp = new Date().getTime();
 	if (type === 'error') {
 		messageListenerStore.update((state) => ({
@@ -40,7 +45,7 @@ const addMessage = (type: 'error' | 'info', message?: string, title?: string) =>
 				...state,
 				errors: [...state.errors].filter((e) => e.timestamp !== timestamp)
 			}));
-		}, 5000);
+		}, duration || 5000);
 	} else if (type === 'info') {
 		messageListenerStore.update((state) => ({
 			...state,
@@ -59,6 +64,6 @@ const addMessage = (type: 'error' | 'info', message?: string, title?: string) =>
 				...state,
 				infos: [...state.infos].filter((e) => e.timestamp !== timestamp)
 			}));
-		}, 5000);
+		}, duration || 5000);
 	}
 };

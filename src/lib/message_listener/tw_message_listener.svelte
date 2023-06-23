@@ -11,7 +11,7 @@
 {#each messages as message, i}
 	<div
 		aria-live="assertive"
-		class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 z-50"
+		class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 z-[100]"
 		style="top: {82 * i}px"
 	>
 		<div class="flex w-full flex-col sm:items-end items-center space-y-4">
