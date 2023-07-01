@@ -9,7 +9,6 @@
 		inputClass?: string;
 		errorClass?: string;
 		items: { name: string | number; value: string | number }[];
-		value?: string | number;
 	}
 	export let error: string | undefined = undefined;
 	export let label: string | undefined = undefined;
@@ -19,7 +18,7 @@
 	export let inputClass: string | undefined = undefined;
 	export let errorClass: string | undefined = undefined;
 	export let items: { name: string | number; value: string | number }[];
-	export let value: string | number | undefined = undefined;
+	export let value: any = undefined;
 </script>
 
 <div class={containerClass}>
