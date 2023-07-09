@@ -7,10 +7,9 @@
 	export let placeholder: string = label || nameFrom;
 	export let valueFrom: string | undefined = undefined;
 	export let valueTo: string | undefined = undefined;
-	export let errorFrom: string | undefined = undefined;
-	export let errorTo: string | undefined = undefined;
-
-	export let autocomplete: boolean = false;
+	export let errorFrom: string | string[] | undefined = undefined;
+	export let errorTo: string | string[] | undefined = undefined;
+	export let errorClass: string | undefined = undefined;
 	export let readonly: boolean = false;
 
 	$: inputClass =
@@ -63,14 +62,23 @@
 			/>
 		</div>
 	</div>
-	{#if errorFrom || errorTo}
-		<div class="mt-2 text-sm text-red-600">
-			{#if errorFrom}
-				{@html errorFrom.split(',').join('<br/>')}
-			{:else if errorTo}
-				{@html errorTo.split(',').join('<br/>')}
-			{/if}
-		</div>
+	{#if errorFrom}
+		{#if Array.isArray(errorFrom)}
+			{#each errorFrom as _error}
+				<p class="mt-2 text-sm text-red-600 {errorClass}">{_error}</p>
+			{/each}
+		{:else}
+			<p class="mt-2 text-sm text-red-600 {errorClass}">{errorFrom}</p>
+		{/if}
+	{/if}
+	{#if errorTo}
+		{#if Array.isArray(errorTo)}
+			{#each errorTo as _error}
+				<p class="mt-2 text-sm text-red-600 {errorClass}">{_error}</p>
+			{/each}
+		{:else}
+			<p class="mt-2 text-sm text-red-600 {errorClass}">{errorTo}</p>
+		{/if}
 	{/if}
 	<slot />
 </fieldset>

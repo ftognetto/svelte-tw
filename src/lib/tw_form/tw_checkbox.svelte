@@ -5,7 +5,7 @@
 	export let checked: boolean = false;
 	export let value: string = 'on';
 	export let subtitleInline: boolean = false;
-	export let error: string | undefined = undefined;
+	export let error: string | string[] | undefined = undefined;
 	export let errorClass: string | undefined = undefined;
 </script>
 
@@ -35,5 +35,13 @@
 			{/if}
 		{/if}
 	</div>
-	{#if error}<p class="mt-2 text-sm text-red-600 {errorClass}">{error}</p>{/if}
+	{#if error}
+		{#if Array.isArray(error)}
+			{#each error as _error}
+				<p class="mt-2 text-sm text-red-600 {errorClass}">{_error}</p>
+			{/each}
+		{:else}
+			<p class="mt-2 text-sm text-red-600 {errorClass}">{error}</p>
+		{/if}
+	{/if}
 </div>
