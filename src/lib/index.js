@@ -6,8 +6,6 @@ export { default as TwMessageListener } from './message_listener/tw_message_list
 export { default as TwAlert } from './tw_components/tw_alert.svelte';
 export { default as TwBadge } from './tw_components/tw_badge.svelte';
 export { default as TwButton } from './tw_components/tw_button.svelte';
-export { default as TwButtonCircular } from './tw_components/tw_button_circular.svelte';
-export { default as TwButtonRounded } from './tw_components/tw_button_rounded.svelte';
 export { default as TwDropdown } from './tw_components/tw_dropdown.svelte';
 export { default as TwModal } from './tw_components/tw_modal.svelte';
 export { default as TwProgressbar } from './tw_components/tw_progressbar.svelte';

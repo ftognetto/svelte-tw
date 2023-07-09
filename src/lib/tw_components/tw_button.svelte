@@ -1,4 +1,6 @@
 <script lang="ts">
+	import LoadingCircle from '$lib/components/loading_circle.svelte';
+
 	export let type: 'button' | 'submit' = 'button';
 	export let color:
 		| 'primary'
@@ -20,16 +22,33 @@
 		| 'purple'
 		| 'purpleLight' = 'primary';
 	export let size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'md';
+	export let variant: 'normal' | 'rounded' | 'icon' = 'normal';
 	let _class =
-		size === 'xs'
-			? 'rounded px-2 py-1 text-xs'
-			: size === 'sm'
-			? 'rounded px-2 py-1 text-sm'
+		variant === 'normal'
+			? size === 'xs'
+				? 'rounded px-2 py-1 text-xs'
+				: size === 'sm'
+				? 'rounded px-2 py-1 text-sm'
+				: size === 'md'
+				? 'rounded-md px-2.5 py-1.5 text-sm'
+				: size === 'lg'
+				? 'rounded-md px-3 py-2 text-sm'
+				: 'rounded-md px-3.5 py-2.5 text-sm'
+			: variant === 'rounded'
+			? size === 'xs'
+				? 'rounded-full px-2.5 py-1 text-xs'
+				: size === 'sm'
+				? 'rounded-full px-2.5 py-1 text-sm'
+				: size === 'md'
+				? 'rounded-full px-3 py-1.5 text-sm'
+				: size === 'lg'
+				? 'rounded-full px-3.5 py-2 text-sm'
+				: 'rounded-full px-4 py-2.5 text-sm'
+			: size === 'xs' || size === 'sm'
+			? 'rounded-full p-1'
 			: size === 'md'
-			? 'rounded-md px-2.5 py-1.5 text-sm'
-			: size === 'lg'
-			? 'rounded-md px-3 py-2 text-sm'
-			: 'rounded-md px-3.5 py-2.5 text-sm';
+			? 'rounded-full p-1.5'
+			: 'rounded-full p-2';
 	let _iconClass =
 		size === 'xs'
 			? '-ml-0.5 mr-1 h-4 w-4'
@@ -61,12 +80,16 @@
 		purple: 'bg-purple-600 hover:bg-purple-700 focus-visibile:ring-purple-500 text-white',
 		purpleLight: 'bg-purple-100 hover:bg-purple-200 focus-visibile:ring-purple-500 text-purple-700'
 	};
+	export let busy = false;
 </script>
 
 <button
 	{...$$restProps}
 	{type}
-	class="tw-button inline-flex items-center font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+	class="tw-button
+	{variant === 'rounded' ? 'tw-button-rounded' : ''} 
+	{variant === 'icon' ? 'tw-button-icon' : ''} 
+	inline-flex items-center font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
     {_class} 
     {_colors[color]} 
     {$$props.class}"
@@ -74,6 +97,9 @@
 >
 	{#if $$slots.icon}
 		<span class={_iconClass}><slot name="icon" /></span>
+	{/if}
+	{#if busy}
+		<LoadingCircle class={_iconClass} />
 	{/if}
 	<slot />
 </button>
