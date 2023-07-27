@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let name: string;
+	export let name: string | undefined = undefined;
 	export let label: string;
 	export let subtitle: string | undefined = undefined;
 	export let checked: boolean = false;
